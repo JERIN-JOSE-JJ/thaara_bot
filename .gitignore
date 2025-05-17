@@ -1,0 +1,33 @@
+# === ROS 2 Workspace build artifacts ===
+build/
+install/
+log/
+
+# === Python bytecode ===
+__pycache__/
+*.py[cod]
+*.so
+
+# === ROS 2 Launch/URDF temp files ===
+*.urdf
+*.xacro~  # Backup edits
+
+# === Editor and IDE files ===
+.vscode/
+.idea/
+*.swp
+*.bak
+*~
+
+# === Arduino-related files ===
+*.hex
+*.elf
+*.eep
+
+# === OS-specific ===
+.DS_Store  # macOS
+Thumbs.db  # Windows
+
+# === Git and temporary ===
+.git/
+*.log
