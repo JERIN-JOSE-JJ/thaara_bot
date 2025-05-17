@@ -1,1 +1,109 @@
 <?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name = "thaara_bot">
+
+    <link name="world"/>
+
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="0.4572 0.3556 0.0762"/>    
+            </geometry>
+            <material name="wheel_base_colour">
+                <color rgba="255 0 0 1"/>
+            </material>
+        </visual>
+
+        <collision>
+            <geometry>
+                <box size="0.4572 0.3556 0.0762"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+
+        <inertial>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <mass value="5.0"/>
+            <inertia ixx="0.054" ixy="0.0" ixz="0.0" iyy="0.088" iyz="0.0" izz="0.136"/>
+        </inertial>
+
+    </link>
+
+    <joint name="base_joint" type="fixed">
+        
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0.0 0.0 0.025" rpy="0.0 0.0 0.0"/>
+           
+    </joint>
+
+    <xacro:macro name="wheel" params="name x y z">
+        <link name="${name}_link">
+            <visual>
+                <geometry>
+                    <cylinder radius="0.05" length="0.02"/>
+                </geometry>
+                <origin xyz="0.0 0.0 0.0" rpy="1.5708 0.0 0.0"/>
+            </visual>
+
+            <collision>
+                 <geometry>
+                    <cylinder radius="0.05" length="0.02"/>
+                    <origin xyz="0.0 0.0 0.0" rpy="1.5708 0.0 0.0"/>
+                 </geometry>
+            </collision>
+
+            <inertial>
+                <mass value="0.5"/>
+                <inertia ixx="0.000329" ixy="0.0" ixz="0.0" iyy="0.000329" iyz="0.0" izz="0.000625"/>
+            </inertial>
+            
+        </link>
+
+    </xacro:macro>
+
+    <xacro:wheel name="front_left" x="0.2" y="0.3" z="-0.05"/>
+    <xacro:wheel name="front_right" x="0.2" y="-0.3" z="-0.05"/>
+    <xacro:wheel name="rear_left" x="-0.2" y="0.3" z="-0.05"/>
+    <xacro:wheel name="rear_right" x="-0.2" y="-0.3" z="-0.05"/>
+
+
+
+
+    <xacro:macro name="wheel_joint" params="name x y z"> 
+        <joint name="${name}_joint" type="continuous">
+            <parent link="base_link"/>
+            <child link="${name}_link"/>
+            <origin xyz="${x} ${y} ${z}" rpy="0.0 0.0 0.0"/>
+            <axis xyz="0.0 1.0 0.0"/>
+            
+        </joint>
+
+    </xacro:macro>
+
+    <xacro:wheel_joint name="front_left" x="0.1651" y="0.1878" z="-0.025"/>
+    <xacro:wheel_joint name="front_right" x="0.1651" y="-0.1878" z="-0.025"/>
+    <xacro:wheel_joint name="rear_left" x="-0.1651" y="0.1878" z="-0.025"/>
+    <xacro:wheel_joint name="rear_right" x="-0.1651" y="-0.1878" z="-0.025"/>
+
+    <link name="base_link_2">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.4 0.3 0.15"/>
+            </geometry>
+            <material name="wheel_base_colour">
+                <color rgba="255 0 0 1"/>
+            </material>
+        </visual>
+        
+    </link>
+
+    <joint name="base_link_2_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_link_2"/>
+        <origin xyz="0.0 0.0 0.1012" rpy="0.0 0.0 0.0"/>
+        
+    </joint>
+
+</robot>
