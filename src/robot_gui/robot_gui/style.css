@@ -1,0 +1,48 @@
+#home-screen {
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    padding: 20px;
+}
+
+#menu-button {
+    background-color: #4a90d9;
+    color: white;
+    font-size: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+    padding: 8px 16px;
+}
+
+#menu-button:hover {
+    background-color: #357ABD;
+}
+
+#home-title {
+    font-size: 24px;
+    color: #ffffff;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+#home-subtitle {
+    font-size: 18px;
+    color: #e0e0e0;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+#home-button {
+    background-image: linear-gradient(to right, #56ab2f, #a8e063);
+    color: white;
+    font-size: 20px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    padding: 15px 25px;
+}
+
+#home-button:hover {
+    background-image: linear-gradient(to right, #6bc36b, #a8e063);
+    box-shadow: 0 10px 16px rgba(0, 0, 0, 0.4);
+}
