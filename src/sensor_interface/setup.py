@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'ultrasonic_node = sensor_interface.ultrasonic_node:main'
         ],
     },
 )

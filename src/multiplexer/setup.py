@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'cmd_vel_mux_node = multiplexer.cmd_vel_mux_node:main'
         ],
     },
 )
