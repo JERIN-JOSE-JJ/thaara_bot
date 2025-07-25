@@ -2,12 +2,24 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
+import rclpy
+from std_msgs.msg import String
+import threading
+
 class HomeScreen(Gtk.Box):
     def __init__(self, stack):
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=20)
         self.stack = stack
         self.set_name("home-screen")
         self.set_border_width(20)
+
+        # ==== ROS 2 Initialization ====
+        rclpy.init(args=None)
+        self.ros_node = rclpy.create_node('gui_mode_switcher')
+        self.mode_pub = self.ros_node.create_publisher(String, '/mode', 10)
+
+        # Spin ROS in a background thread
+        threading.Thread(target=self.ros_spin, daemon=True).start()
 
         # ==== Header bar layout (menu + title) ====
         header_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
@@ -56,11 +68,22 @@ class HomeScreen(Gtk.Box):
 
         self.pack_start(button_box, True, True, 0)
 
+    def ros_spin(self):
+        rclpy.spin(self.ros_node)
+
+    def publish_mode(self, mode_str):
+        msg = String()
+        msg.data = mode_str
+        self.mode_pub.publish(msg)
+        print(f"Switched to {mode_str.capitalize()} Mode")
+
     def on_manual_clicked(self, button):
         self.stack.set_visible_child_name("manual")
+        self.publish_mode("manual")
 
     def on_autonomy_clicked(self, button):
         self.stack.set_visible_child_name("autonomy")
+        self.publish_mode("autonomous")
 
     def on_menu_clicked(self, button):
         menu = Gtk.Menu()
